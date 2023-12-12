@@ -1,64 +1,74 @@
 package com.nopcommerce.demo.pages;
 
-import com.aventstack.extentreports.Status;
-import com.nopcommerce.demo.customlisteners.CustomListeners;
 import com.nopcommerce.demo.utility.Utility;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
-/**
- * Created by Jay Vaghani
- */
 public class BuildYourOwnComputerPage extends Utility {
 
     @CacheLookup
-    @FindBy (xpath = "//h1[contains(text(),'Welcome, Please Sign In!')]") WebElement welcomeText;
-   // By welcomeText = By.xpath("//h1[contains(text(),'Welcome, Please Sign In!')]");
+    @FindBy(xpath = "//h1[normalize-space()='Build your own computer']")
+    WebElement textBuiltYourOwnComputer;
 
     @CacheLookup
-    @FindBy (id = "Email") WebElement emailField;
-   // By emailField = By.id("Email");
-
-   @CacheLookup
-   @FindBy (name= "Password") WebElement passwordField;
-   // By passwordField = By.name("Password");
-
+    @FindBy(id = "product_attribute_1")
+    WebElement processorLink;
 
     @CacheLookup
-    @FindBy (xpath= "//button[contains(text(),'Log in')]") WebElement loginButton;
-   // By loginButton = By.xpath("//button[contains(text(),'Log in')]");
-
+    @FindBy(id = "product_attribute_2")
+    WebElement ramLink;
 
     @CacheLookup
-    @FindBy (xpath= "//div[@class='message-error validation-summary-errors']") WebElement errorMessage;
-   // By errorMessage = By.xpath("//div[@class='message-error validation-summary-errors']");
+    @FindBy(xpath = "//input[@id='product_attribute_3_7']")
+    WebElement hddRadioButton;
 
+    @CacheLookup
+    @FindBy(id = "product_attribute_4_9")
+    WebElement osRadioButton;
 
+    @CacheLookup
+    @FindBy(id = "product_attribute_5_12")
+    WebElement softwareCheckBoxes;
 
-    public String getWelcomeText(){
-        String message = getTextFromElement(welcomeText);
-        return message;
+    @CacheLookup
+    @FindBy(id = "add-to-cart-button-1")
+    WebElement addToCart;
+
+    @CacheLookup
+    @FindBy(xpath = "//p[@class='content']")
+    WebElement textProductAddedToYourCart;
+
+    public String verifyBuildYourOwnComputer() {
+        return getTextFromElement(textBuiltYourOwnComputer);
     }
 
-    public void enterEmailId(String email){
-        sendTextToElement(emailField, email);
-        CustomListeners.test.log(Status.PASS,"Enter EmailId " + email);
+    public void selectProcessor(String processor) {
+        selectByVisibleTextFromDropDown(processorLink, processor);
     }
 
-    public void enterPassword(String password){
-        sendTextToElement(passwordField, password);
-        CustomListeners.test.log(Status.PASS,"Enter Password " + password);
+    public void selectRAM(String ram) {
+        selectByVisibleTextFromDropDown(ramLink, ram);
     }
 
-    public void clickOnLoginButton(){
-        clickOnElement(loginButton);
-        CustomListeners.test.log(Status.PASS,"Click on loginButton");
+    public void selectHDD(String hdd) {
+        clickOnElement(hddRadioButton);
     }
 
-    public String getErrorMessage(){
-        String message = getTextFromElement(errorMessage);
-        CustomListeners.test.log(Status.PASS,"Get errorMessage");
-        return message;
+    public void selectOS(String os) {
+        clickOnElement(osRadioButton);
+    }
+
+    public void clickOnCheckBox3(String software) {
+        clickOnElement(softwareCheckBoxes);
+    }
+
+    public void clickOnAddToCart() {
+        clickOnElement(addToCart);
+    }
+
+    public String verifyTextProductAdded() {
+        return getTextFromElement(textProductAddedToYourCart);
+
     }
 }
